@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent-Kernel Poster Final</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+
+        :root {
+            color-scheme: light;
+            --content-width: 900px;
+
+            /* 背景渐变 */
+            --bg-gradient: radial-gradient(circle at 5% -10%, rgba(183, 200, 142, 0.45), transparent 42%),
+                radial-gradient(circle at 80% 0%, rgba(254, 214, 126, 0.35), transparent 46%),
+                #FDF8E8;
+            --surface-glass: rgba(255, 255, 255, 0.4);
+
+            /* 颜色系统 */
+            --accent: #77933C;
+            --accent-dark: #4A6321;
+            --accent-strong: #A35C1C;
+            --text-primary: #2E5728;
+            --text-secondary: #8C4D18;
+
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            line-height: 1.4;
+        }
+
+        .poster-container {
+            width: 100%;
+            max-width: var(--content-width);
+            background: var(--surface-glass);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(46, 87, 40, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .top-bar {
+            height: 12px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+        }
+
+        .content-wrapper {
+            padding: 60px 70px;
+        }
+
+        /* 通用图片样式 */
+        .img-fluid {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-img {
+            width: 150px;
+            margin: 0 auto 30px auto;
+            display: block;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+
+        /* 标题排版 */
+        h1 {
+            font-size: 4rem;
+            color: var(--accent-dark);
+            text-align: center;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .slogan {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--accent-strong);
+            font-weight: 800;
+            margin-bottom: 50px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #5a4a3a;
+            max-width: 85%;
+            margin: 0 auto 70px auto;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* 分隔标题 (无 Emoji) */
+        h2 {
+            font-size: 2.2rem;
+            color: var(--accent-dark);
+            margin-top: 70px;
+            margin-bottom: 40px;
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+            letter-spacing: -1px;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 5px;
+            background: var(--accent-strong);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        /* 亮点 (纯文字大排版) */
+        .highlights-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .highlight-text {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.3;
+            text-align: center;
+            padding: 5px 15px;
+            /* 荧光笔高亮效果 */
+            background: linear-gradient(180deg, transparent 70%, rgba(183, 200, 142, 0.5) 70%);
+        }
+
+        /* 核心优势 */
+        .advantage-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 50px;
+            margin-top: 30px;
+        }
+
+        .advantage-item {
+            position: relative;
+        }
+
+        .adv-num {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--accent-strong);
+            opacity: 0.12;
+            position: absolute;
+            top: -30px;
+            left: -15px;
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .adv-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-strong);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+
+        .adv-desc {
+            font-size: 1.1rem;
+            color: #4a3b2a;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* 应用展示 */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        .showcase-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .showcase-img-container {
+            height: 260px;
+            overflow: hidden;
+        }
+
+        .showcase-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* 移除 transform: scale 的交互 */
+        }
+
+        .showcase-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .showcase-content h3 {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        /* 视频二维码区域 (放大) */
+        .video-qr {
+            margin-top: auto;
+            padding-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-qr img {
+            width: 100px;
+            /* 放大 */
+            height: 100px;
+            border-radius: 8px;
+            margin-right: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .video-text {
+            font-weight: bold;
+            color: var(--accent-strong);
+            line-height: 1.2;
+        }
+
+        /* 论文区域 */
+        .paper-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(240, 248, 255, 0.8));
+            border-radius: 16px;
+            padding: 35px;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(119, 147, 60, 0.1);
+        }
+
+        .paper-info {
+            flex: 1;
+            padding-right: 30px;
+        }
+
+        .paper-tag {
+            background: var(--accent-strong);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .paper-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .paper-link {
+            color: var(--accent-dark);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .paper-qr img {
+            width: 110px;
+            height: 110px;
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 团队与署名 */
+        .team-section {
+            margin-top: 70px;
+            text-align: center;
+            padding-top: 50px;
+            border-top: 2px dashed rgba(119, 147, 60, 0.3);
+        }
+
+        .author-list {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .author-list sup {
+            color: var(--accent-strong);
+            font-weight: 800;
+            margin-right: 2px;
+        }
+
+        .affiliation-list {
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* 机构 Logo 网格 */
+        .partner-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--accent-dark);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            align-items: center;
+            justify-items: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        /* 修改：固定背景色，移除悬停变化 */
+        .org-logo-container {
+            width: 100%;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.7);
+            /* 稍微增加不透明度以保证Logo清晰 */
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        /* 修改：强制显示原色原图 */
+        .org-logo {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: none;
+            /* 无滤镜 */
+            opacity: 1;
+            /* 不透明 */
+            transition: none;
+            /* 无过渡动画 */
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--accent-dark);
+            margin: 0 -70px -60px -70px;
+            padding: 50px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-bottom: 30px;
+        }
+
+        .footer-qr-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-qr-group img {
+            width: 130px;
+            height: 130px;
+            /* 放大 */
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-qr-group span {
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="poster-container">
+        <div class="top-bar"></div>
+        <div class="content-wrapper">
+
+            <img src="logo.png" alt="Logo" class="logo-img">
+
+            <h1>Agent-Kernel</h1>
+            <span class="slogan">探索集体智能的无限可能</span>
+
+            <div class="intro-text">
+                Agent-Kernel 是一款用户友好的多智能体系统开发框架，深度赋能大规模社会模拟，为探索大规模集体智能提供无限可能。
+            </div>
+
+            <h2>亮点特性</h2>
+            <div class="highlights-container">
+                <span class="highlight-text">运行时动态增减智能体</span>
+                <span class="highlight-text">智能体数量无限扩展</span>
+                <span class="highlight-text">模拟过程实时干预</span>
+                <span class="highlight-text">行为与输出验证审查</span>
+                <span class="highlight-text">跨模拟场景代码复用</span>
+            </div>
+
+            <h2>核心优势</h2>
+            <div class="advantage-list">
+                <div class="advantage-item">
+                    <span class="adv-num">01</span>
+                    <div class="adv-title">适应性</div>
+                    <div class="adv-desc">支持运行时改变环境和行为，模拟社会动态演进。</div>
+                </div>
+                <div class="advantage-item">
+                    <span class="adv-num">02</span>
+                    <div class="adv-title">可配置性</div>
+                    <div class="adv-desc">强大的实时干预能力，直接调整参数或触发突发事件。</div>
+                </div>
+                <div class="advantage-item">
+                    <span class="adv-num">03</span>
+                    <div class="adv-title">可靠性</div>
+                    <div class="adv-desc">系统级校验机制，保障物理与社会规则，确保结果科学。</div>
+                </div>
+                <div class="advantage-item">
+                    <span class="adv-num">04</span>
+                    <div class="adv-title">可复用性</div>
+                    <div class="adv-desc">标准化插件设计，功能模块跨场景无缝复用，加速迭代。</div>
+                </div>
+            </div>
+
+            <h2>应用展示</h2>
+            <div class="showcase-grid">
+                <div class="showcase-card">
+                    <div class="showcase-img-container">
+                        <img src="rat.jpg" alt="25号宇宙">
+                    </div>
+                    <div class="showcase-content">
+                        <h3>25 号宇宙</h3>
+                        <p style="color:#666; font-size:1rem;">模拟著名的“25 号宇宙”社会学实验，探索人口密度与行为异常关系。</p>
+                        <div class="video-qr">
+                            <img src="qr_rat.png" alt="Video QR">
+                            <div class="video-text">
+                                扫码观看<br>模拟演示
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-img-container">
+                        <img src="zju.png" alt="浙江大学">
+                    </div>
+                    <div class="showcase-content">
+                        <h3>浙江大学校园生活</h3>
+                        <p style="color:#666; font-size:1rem;">构建高保真校园模拟，研究行人流动与社会互动模式。</p>
+                        <div class="video-qr">
+                            <img src="qr_zju.png" alt="Video QR">
+                            <div class="video-text">
+                                扫码观看<br>模拟演示
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>架构与设计</h2>
+            <img src="framework.png" alt="框架架构图" class="img-fluid">
+            <!-- <img src="softwaredesign.png" alt="软件设计图" class="img-fluid"> -->
+
+            <div class="paper-section">
+                <div class="paper-info">
+                    <span class="paper-tag">ArXiv Preprint</span>
+                    <div class="paper-title">Agent-Kernel: A MicroKernel Multi-Agent System Framework for Adaptive
+                        Social Simulation Powered by LLMs</div>
+                    <a href="https://arxiv.org/abs/2512.01610" class="paper-link">https://arxiv.org/abs/2512.01610</a>
+                </div>
+                <div class="paper-qr">
+                    <img src="qr_arxiv.png" alt="Paper QR">
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="author-list">
+                    <sup>1,2</sup>Yuren Mao,
+                    <sup>1</sup>Peigen Liu,
+                    <sup>1</sup>Xinjian Wang,
+                    <sup>1</sup>Rui Ding,
+                    <sup>1</sup>Jing Miao,
+                    <sup>1</sup>Hui Zou,
+                    <sup>1</sup>Mingjie Qi,
+                    <sup>1</sup>Wanxiang Luo,<br>
+                    <sup>4</sup>Longbin Lai,
+                    <sup>6</sup>Kai Wang,
+                    <sup>5</sup>Zhengping Qian,
+                    <sup>3</sup>Peilun Yang,
+                    <sup>1,2</sup>Yunjun Gao*,
+                    <sup>3</sup>Ying Zhang*
+                </div>
+
+                <div class="affiliation-list">
+                    <div><sup>1</sup> School of Software Technology, Zhejiang University</div>
+                    <div><sup>2</sup> The Key Lab of Big Data Intelligent Computing of Zhejiang Province</div>
+                    <div><sup>3</sup> Laboratory for Statistical Monitoring and Intelligent Governance of Common
+                        Prosperity, Zhejiang Gongshang University</div>
+                    <div><sup>4</sup> Tongyi Lab, Alibaba Group</div>
+                    <div><sup>5</sup> Alibaba Cloud</div>
+                    <div><sup>6</sup> Antai College of Economics and Management, Shanghai Jiao Tong University</div>
+                </div>
+
+                <div class="partner-title">Partner Institutions</div>
+                <div class="logo-grid">
+                    <div class="org-logo-container">
+                        <img src="https://www.agent-kernel.tech/src/assets/team/cooperation/zju.png"
+                            alt="Zhejiang University" class="org-logo">
+                    </div>
+                    <div class="org-logo-container">
+                        <img src="https://www.agent-kernel.tech/src/assets/team/cooperation/sjtu.svg"
+                            alt="Shanghai Jiao Tong University" class="org-logo">
+                    </div>
+                    <div class="org-logo-container">
+                        <img src="https://www.agent-kernel.tech/src/assets/team/cooperation/zjgsu.svg"
+                            alt="Zhejiang Gongshang University" class="org-logo">
+                    </div>
+                    <div class="org-logo-container">
+                        <img src="https://www.agent-kernel.tech/src/assets/team/cooperation/aliyun.png"
+                            alt="Alibaba Cloud" class="org-logo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-links">
+                    <div class="footer-qr-group">
+                        <img src="qr_web.png" alt="Website">
+                        <span>Project Page</span>
+                    </div>
+                    <div class="footer-qr-group">
+                        <img src="qr_git.png" alt="GitHub">
+                        <span>GitHub Code</span>
+                    </div>
+                </div>
+                <p>Copyright © 2025 Agent-Kernel Team. All Rights Reserved.</p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
